@@ -1,0 +1,25 @@
+{
+  "name": "docker_api_disal",
+  "version": "1.0.0",
+  "description": "API de cadastro de peças com Ordem de serviço",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrcsmotta1/docker_api_disal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrcsmotta1/docker_api_disal/issues"
+  },
+  "homepage": "https://github.com/mrcsmotta1/docker_api_disal#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
