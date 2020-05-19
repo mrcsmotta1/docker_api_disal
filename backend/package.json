@@ -20,6 +20,7 @@
   "homepage": "https://github.com/mrcsmotta1/docker_api_disal#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.9.15",
     "nodemon": "^2.0.4"
   }
 }
