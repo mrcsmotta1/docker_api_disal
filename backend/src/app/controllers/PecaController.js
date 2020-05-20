@@ -24,7 +24,19 @@ router.post("/register", async (req, res) => {
 //listagem
 router.get("/registers", async (req, res) => {
   try {
-    const peca = await Peca.find();
+    const pecas = await Peca.find();
+    return pecas == null
+      ? res.status(404).json({ message: "pecas not found" })
+      : res.status(201).send(pecas);
+  } catch (e) {
+    return res.status(400).json({ error: "Select failed" });
+  }
+});
+
+//listagem pelo id
+router.get("/register/:pecaID", async (req, res) => {
+  try {
+    const peca = await Peca.findById(req.params.pecaID);
     return peca == null
       ? res.status(404).json({ message: "peca not found" })
       : res.status(201).send(peca);
