@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../database");
 
 const PecaSchema = new mongoose.Schema({
   //nome descricao peso data fabricaca os producao
