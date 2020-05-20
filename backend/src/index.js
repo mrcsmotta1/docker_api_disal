@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   res.send("Hello Word.");
 });
 
-require("./controllers/authController")(app);
+require("./app/controllers/PecaController")(app);
 
 app.listen(PORT, (HOST) => {
   console.log("Servidor em execução na porta " + PORT);
