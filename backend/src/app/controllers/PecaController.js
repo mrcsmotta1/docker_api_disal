@@ -185,7 +185,7 @@ module.exports = {
 
   /**
    * @swagger
-   * /api/v1/register/{pecaID}:
+   * /api/v1/register/id/{pecaID}:
    *  get:
    *    tags:
    *    - 'Peças'
@@ -212,6 +212,8 @@ module.exports = {
    *          description: "Select failed"
    *       404:
    *          description: "Part not found"
+   *       415:
+   *          description: "ID is a String value"
    * definitions:
    *    Buscar_pecas_por_id:
    *       type: object
@@ -253,20 +255,24 @@ module.exports = {
    *          name: 'Peca'
    *
    */
-  async select(req, res) {
+  async selectId(req, res) {
     try {
       const peca = await Peca.findById(req.params.pecaID);
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
         : res.status(200).send(peca);
     } catch (e) {
+      let os = req.params.pecaID;
+      if (!isNaN(os))
+        return res.status(415).json({ error: "ID is a String value" });
+
       return res.status(400).json({ error: "Select failed" });
     }
   },
 
   /**
    * @swagger
-   * /api/v1/register/{pecaID}:
+   * /api/v1/register/id/{pecaID}:
    *  put:
    *    tags:
    *    - 'Peças'
@@ -317,6 +323,8 @@ module.exports = {
    *          description: "Update failed"
    *       404:
    *          description: "Part not found"
+   *       415:
+   *          description: "ID is a String value"
    * definitions:
    *    Editar_peca_por_id:
    *       type: object
@@ -357,7 +365,7 @@ module.exports = {
    *       xml:
    *          name: 'Peca'
    */
-  async update(req, res) {
+  async updateId(req, res) {
     try {
       const peca = await Peca.findByIdAndUpdate(req.params.pecaID, req.body, {
         new: true,
@@ -366,13 +374,17 @@ module.exports = {
         ? res.status(404).json({ message: "Part not found" })
         : res.status(200).send(peca);
     } catch (e) {
+      let os = req.params.pecaID;
+      if (isNaN(os))
+        return res.status(415).json({ error: "OS is a numeric value" });
+
       return res.status(400).json({ error: "Update failed" });
     }
   },
 
   /**
    * @swagger
-   * /api/v1/register/{pecaID}:
+   * /api/v1/register/id/{pecaID}:
    *  delete:
    *    tags:
    *    - 'Peças'
@@ -397,14 +409,271 @@ module.exports = {
    *          description: "Deletion failed"
    *       404:
    *          description: "Part not found"
+   *       415:
+   *          description: "ID is a string value"
+   *
    */
-  async delete(req, res) {
+  async deleteId(req, res) {
     try {
       const peca = await Peca.findByIdAndDelete(req.params.pecaID);
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
         : res.status(200).json({ message: "Successfully deleted" });
     } catch (e) {
+      let os = req.params.pecaID;
+      if (isNaN(os))
+        return res.status(415).json({ error: "OS is a numeric value" });
+
+      return res.status(400).json({ error: "Deletion failed" });
+    }
+  },
+
+  /**
+   * @swagger
+   * /api/v1/register/os/{pecaOS}:
+   *  get:
+   *    tags:
+   *    - 'Peças'
+   *    summary: 'Buscar uma peça por OS'
+   *    description: 'Buscar uma peças por OS'
+   *    produces:
+   *    - application/json
+   *    parameters:
+   *    - in: path
+   *      name: pecaOS
+   *      format: number
+   *      schema:
+   *        type: number
+   *      required: true
+   *      description: OS da peça para buscar Ex. 1
+   *      Example:
+   *        os: 1
+   *    responses:
+   *       200:
+   *         description:
+   *         schema:
+   *          $ref: '#/definitions/Buscar_pecas_por_os'
+   *       400:
+   *          description: "Select failed"
+   *       404:
+   *          description: "Part not found"
+   *       415:
+   *          description: "OS is a numeric value"
+   * definitions:
+   *    Buscar_pecas_por_os:
+   *       type: object
+   *       example:
+   *         _id: 5e7fa629382a536b82e142cf
+   *         os: 111500
+   *         nome: Api nodeJS
+   *         descricao: Documentação Swagger
+   *         peso:
+   *           $numberDecimal: "1.25"
+   *         datafabricacao: 2020-05-19T00:00:00.000Z
+   *         update_at: 2020-05-19T00:00:00.000Z
+   *         created_at: 2020-05-19T00:00:00.000Z
+   *       properties:
+   *         _id:
+   *            type: string
+   *         os:
+   *            type: number
+   *         nome:
+   *            type: string
+   *         descricao:
+   *            type: string
+   *         peso:
+   *            type: number
+   *            format: double
+   *         datafabricacao:
+   *             type: string
+   *             format: date-time
+   *         updated_at:
+   *            type: string
+   *            format: date-time
+   *         created_at:
+   *            type: string
+   *            format: date-time
+   *         __v:
+   *            type: integer
+   *            format: 0
+   *       xml:
+   *          name: 'Peca'
+   *
+   */ async selectOs(req, res) {
+    try {
+      const peca = await Peca.findOne({ os: req.params.pecaOS });
+      return peca == null
+        ? res.status(404).json({ message: "Part not found" })
+        : res.status(200).send(peca);
+    } catch (e) {
+      let os = req.params.pecaOS;
+      if (isNaN(os))
+        return res.status(415).json({ error: "OS is a numeric value" });
+
+      return res.status(400).json({ error: "Select failed" });
+    }
+  },
+
+  /**
+   * @swagger
+   * /api/v1/register/os/{pecaOS}:
+   *  put:
+   *    tags:
+   *    - 'Peças'
+   *    summary: 'Editar uma peça por OS'
+   *    description: 'Editar uma peças por OS'
+   *    produces:
+   *    - application/json
+   *    parameters:
+   *    - in: path
+   *      name: pecaOS
+   *      format: number
+   *      description: OS da peça que será editado Ex. 1
+   *      required: true
+   *    - in: body
+   *      name: body
+   *      description: Campos que serão editados
+   *      required: true
+   *      schema:
+   *        type: object
+   *        properties:
+   *          os:
+   *             type: number
+   *             example: 111500
+   *          nome:
+   *             type: string
+   *             example: "Api nodeJS"
+   *          descricao:
+   *             type: string
+   *             example: "Documentação Swagger"
+   *          peso:
+   *             type: number
+   *             format: double
+   *             example: 1.250
+   *          datafabricacao:
+   *              type: string
+   *              format: date-time
+   *              example: "2020-05-19T00:00:00.000Z"
+   *          updated_at:
+   *              type: string
+   *              format: date-time
+   *              example: "2020-05-19T00:00:00.000Z"
+   *    responses:
+   *       200:
+   *         description:
+   *         schema:
+   *          $ref: '#/definitions/Editar_peca_por_os'
+   *       400:
+   *          description: "Update failed"
+   *       404:
+   *          description: "Part not found"
+   *       415:
+   *          description: "ID is a String value"
+   * definitions:
+   *    Editar_peca_por_os:
+   *       type: object
+   *       example:
+   *         _id: 5e7fa629382a536b82e142cf
+   *         os: 111500
+   *         nome: Api nodeJS
+   *         descricao: Documentação Swagger
+   *         peso:
+   *           $numberDecimal: "1.25"
+   *         datafabricacao: 2020-05-19T00:00:00.000Z
+   *         update_at: 2020-05-21T00:00:00.000Z
+   *         created_at: 2020-05-19T00:00:00.000Z
+   *       properties:
+   *         _id:
+   *            type: string
+   *         os:
+   *            type: number
+   *         nome:
+   *            type: string
+   *         descricao:
+   *            type: string
+   *         peso:
+   *            type: number
+   *            format: double
+   *         datafabricacao:
+   *             type: string
+   *             format: date-time
+   *         updated_at:
+   *            type: string
+   *            format: date-time
+   *         created_at:
+   *            type: string
+   *            format: date-time
+   *         __v:
+   *            type: integer
+   *            format: 0
+   *       xml:
+   *          name: 'Peca'
+   */
+  async updateOs(req, res) {
+    try {
+      const peca = await Peca.findOneAndUpdate(
+        { os: req.params.pecaOS },
+        req.body,
+        {
+          new: true,
+        }
+      );
+
+      return peca == null
+        ? res.status(404).json({ message: "Part not found" })
+        : res.status(200).send(peca);
+    } catch (e) {
+      let os = req.params.pecaID;
+      if (isNaN(os))
+        return res.status(415).json({ error: "OS is a numeric value" });
+
+      return res.status(400).json({ error: "Update failed" });
+    }
+  },
+
+  /**
+   * @swagger
+   * /api/v1/register/os/{pecaOS}:
+   *  delete:
+   *    tags:
+   *    - 'Peças'
+   *    summary: 'Deletar uma peça por OS'
+   *    description: 'Deletar uma peças por OS'
+   *    produces:
+   *    - application/json
+   *    parameters:
+   *    - in: path
+   *      name: pecaOS
+   *      format: number
+   *      schema:
+   *        type: number
+   *      required: true
+   *      description: OS da peça para deletar Ex. 1
+   *      Example:
+   *        os: 1
+   *    responses:
+   *       200:
+   *         description: "Successfully deleted"
+   *       400:
+   *          description: "Deletion failed"
+   *       404:
+   *          description: "Part not found"
+   *       415:
+   *          description: "OS is a numeric value"
+   *
+   */
+  async deleteOs(req, res) {
+    try {
+      const peca = await Peca.findOneAndDelete({ os: req.params.pecaOS });
+
+      return peca == null
+        ? res.status(404).json({ message: "Part not found" })
+        : res.status(200).json({ message: "Successfully deleted" });
+    } catch (e) {
+      let os = req.params.pecaID;
+      if (isNaN(os))
+        return res.status(415).json({ error: "OS is a numeric value" });
+
       return res.status(400).json({ error: "Deletion failed" });
     }
   },

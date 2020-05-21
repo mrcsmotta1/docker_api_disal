@@ -26,10 +26,12 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 routes.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-routes.get("/registers", PecaController.list);
-routes.get("/register/:pecaID", PecaController.select);
 routes.post("/register", PecaController.create);
-routes.put("/register/:pecaID", PecaController.update);
-routes.delete("/register/:pecaID", PecaController.delete);
-
+routes.get("/registers", PecaController.list);
+routes.get("/register/id/:pecaID", PecaController.selectId);
+routes.put("/register/id/:pecaID", PecaController.updateId);
+routes.delete("/register/id/:pecaID", PecaController.deleteId);
+routes.get("/register/os/:pecaOS", PecaController.selectOs);
+routes.put("/register/os/:pecaOS", PecaController.updateOs);
+routes.delete("/register/os/:pecaOS", PecaController.deleteOs);
 module.exports = routes;
