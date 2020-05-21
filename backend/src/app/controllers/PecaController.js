@@ -58,4 +58,16 @@ router.put("/register/:pecaID", async (req, res) => {
   }
 });
 
+//update pelo id
+router.delete("/register/:pecaID", async (req, res) => {
+  try {
+    const peca = await Peca.findByIdAndDelete(req.params.pecaID);
+    return peca == null
+      ? res.status(404).json({ message: "peca not found" })
+      : res.status(200).json({ message: "ok" });
+  } catch (e) {
+    return res.status(400).json({ error: "Delete failed" });
+  }
+});
+
 module.exports = (app) => app.use("/auth", router);
