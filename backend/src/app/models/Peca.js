@@ -23,14 +23,20 @@ const PecaSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  updated: {
+  updated_at: {
     type: Date,
     default: Date.now,
   },
-  createAt: {
+  created_at: {
     type: Date,
     default: Date.now,
   },
+});
+
+PecaSchema.pre("findOneAndUpdate", function (next) {
+  this._update.updated_at = Date.now();
+
+  next();
 });
 
 const Peca = mongoose.model("Peca", PecaSchema);

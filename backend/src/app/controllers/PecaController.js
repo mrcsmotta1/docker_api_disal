@@ -16,7 +16,6 @@ router.post("/register", async (req, res) => {
     if (e.code == 11000) {
       return res.status(409).json({ error: "Duplicate record" });
     }
-
     return res.status(400).json({ error: "Registration failed" });
   }
 });
@@ -39,9 +38,23 @@ router.get("/register/:pecaID", async (req, res) => {
     const peca = await Peca.findById(req.params.pecaID);
     return peca == null
       ? res.status(404).json({ message: "peca not found" })
-      : res.status(201).send(peca);
+      : res.status(200).send(peca);
   } catch (e) {
     return res.status(400).json({ error: "Select failed" });
+  }
+});
+
+//update pelo id
+router.put("/register/:pecaID", async (req, res) => {
+  try {
+    const peca = await Peca.findByIdAndUpdate(req.params.pecaID, req.body, {
+      new: true,
+    });
+    return peca == null
+      ? res.status(404).json({ message: "peca not found" })
+      : res.status(200).send(peca);
+  } catch (e) {
+    return res.status(400).json({ error: "Update failed" });
   }
 });
 
