@@ -19,7 +19,6 @@ const swaggerOptions = {
       server: ["http://localhst:5000"],
     },
   },
-  // ['./src/controllers/ProductController/*.js']
   apis: ["./src/app/controllers/PecaController.js"],
 };
 
