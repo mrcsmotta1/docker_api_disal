@@ -680,10 +680,40 @@ module.exports = {
     }
   },
 
+  /**
+   * @swagger
+   * /api/v1/register/qrcode/{parametro}:
+   *  get:
+   *    tags:
+   *    - 'Peças'
+   *    summary: 'Gerar qr-code de uma peça por ID ou OS'
+   *    description: 'Gerar qr-code de uma peça por ID ou OS'
+   *    produces:
+   *    - application/json
+   *    parameters:
+   *    - in: path
+   *      name: parametro
+   *      format: string
+   *      schema:
+   *        type: string
+   *      required: true
+   *      description: "Numero da OS ou ID da peça para gerar qr-code"
+   *      Example:
+   *        os: 1
+   *        _id: 5e7fa629382a536b82e142cf
+   *    responses:
+   *       200:
+   *         description: "ok"
+   *       400:
+   *          description: "Qr-code failed"
+   *       404:
+   *          description: "Part not found"
+   *
+   */
   async qrcode(req, res) {
     try {
-      ("use strict");
       const pr = req.params.parametro;
+      let peca;
 
       if (isNaN(pr)) peca = await Peca.findById(pr);
 
@@ -698,8 +728,12 @@ module.exports = {
       res.type("svg");
 
       code.pipe(res);
+
+      return code == null
+        ? res.status(404).json({ message: "Part not found" })
+        : res.status(200);
     } catch (e) {
-      return res.status(400).json({ error: "Select failed" });
+      return res.status(400).json({ error: "Qr-code failed" });
     }
   },
 };

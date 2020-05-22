@@ -33,5 +33,5 @@ routes.delete("/register/id/:pecaID", PecaController.deleteId);
 routes.get("/register/os/:pecaOS", PecaController.selectOs);
 routes.put("/register/os/:pecaOS", PecaController.updateOs);
 routes.delete("/register/os/:pecaOS", PecaController.deleteOs);
-routes.get("/qrcode/:parametro", PecaController.qrcode);
+routes.get("/register/qrcode/:parametro", PecaController.qrcode);
 module.exports = routes;
