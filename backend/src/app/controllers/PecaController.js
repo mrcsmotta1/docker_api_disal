@@ -1,6 +1,8 @@
 const express = require("express");
-
+const qr = require("qr-image");
 const Peca = require("../models/Peca");
+
+const renderizar = require("../../modules/module");
 
 module.exports = {
   /**
@@ -675,6 +677,29 @@ module.exports = {
         return res.status(415).json({ error: "OS is a numeric value" });
 
       return res.status(400).json({ error: "Deletion failed" });
+    }
+  },
+
+  async qrcode(req, res) {
+    try {
+      ("use strict");
+      const pr = req.params.parametro;
+
+      if (isNaN(pr)) peca = await Peca.findById(pr);
+
+      if (!isNaN(pr)) peca = await Peca.findOne({ os: pr });
+
+      const toArray = [peca];
+
+      const result = renderizar(toArray);
+
+      const code = qr.image(result, { type: "svg", size: 5 });
+
+      res.type("svg");
+
+      code.pipe(res);
+    } catch (e) {
+      return res.status(400).json({ error: "Select failed" });
     }
   },
 };
