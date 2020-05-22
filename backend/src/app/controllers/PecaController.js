@@ -177,7 +177,7 @@ module.exports = {
   async list(req, res) {
     try {
       const pecas = await Peca.find();
-      return pecas == null
+      return pecas.length === 0
         ? res.status(404).json({ message: "Part not found" })
         : res.status(200).send(pecas);
     } catch (e) {
@@ -377,8 +377,8 @@ module.exports = {
         : res.status(200).send(peca);
     } catch (e) {
       let os = req.params.pecaID;
-      if (isNaN(os))
-        return res.status(415).json({ error: "OS is a numeric value" });
+      if (!isNaN(os))
+        return res.status(415).json({ error: "ID is a String value" });
 
       return res.status(400).json({ error: "Update failed" });
     }
@@ -423,8 +423,8 @@ module.exports = {
         : res.status(200).json({ message: "Successfully deleted" });
     } catch (e) {
       let os = req.params.pecaID;
-      if (isNaN(os))
-        return res.status(415).json({ error: "OS is a numeric value" });
+      if (!isNaN(os))
+        return res.status(415).json({ error: "Id is a String value" });
 
       return res.status(400).json({ error: "Deletion failed" });
     }
@@ -719,6 +719,8 @@ module.exports = {
 
       if (!isNaN(pr)) peca = await Peca.findOne({ os: pr });
 
+      if (peca == null) res.status(404).json({ message: "Part not found" });
+
       const toArray = [peca];
 
       const result = renderizar(toArray);
@@ -729,9 +731,7 @@ module.exports = {
 
       code.pipe(res);
 
-      return code == null
-        ? res.status(404).json({ message: "Part not found" })
-        : res.status(200);
+      return res.status(200);
     } catch (e) {
       return res.status(400).json({ error: "Qr-code failed" });
     }
