@@ -40,6 +40,7 @@ Após a mensagem "**Servidor em execução na porta 5000**"
 > **Banco de dados MongoDB, esta rodando na porta 27017**
 
 user: root
+
 password: disal
 
 >**Interface admin Mongo Express, esta rodando na porta 8081.**
