@@ -1,18 +1,28 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb://root:disal@mongo:27017/cadastropeca?authSource=admin",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
+const uriToTest =
+  "mongodb://root:disal@127.0.0.1:27017/cadastropeca?authSource=admin";
+const uriToDocker = "mongodb://root:disal@mongo/cadastropeca?authSource=admin";
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+};
+
+mongoose.connect(uriToTest, options).then(
+  () => {
+    console.log("Connected to mongo database successfully");
+  },
+  (err) => {
+    console.log("Erro na conexão.");
+    mongoose.connect(uriToDocker, options).then(() => {
+      console.log(
+        "Connected to mongo database successfully for second connection"
+      );
+    });
   }
 );
 
-mongoose.connection.on("open", (err) => {
-  if (err) console.log("Error connecting to our mongo database");
-  console.log("Connected to mongo database successfully");
-});
 mongoose.Promise = global.Promise;
 
 module.exports = mongoose;
