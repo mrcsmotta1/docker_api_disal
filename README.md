@@ -33,7 +33,7 @@ Após a mensagem "**Servidor em execução na porta 5000**" abra uma nova aba de
 
 ### Executando requisições com o Postman
 
-[Postam](https://documenter.getpostman.com/view/2333553/SztA78vK)
+[Postman](https://documenter.getpostman.com/view/2333553/SztA78vK)
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/90fb5ec64e82d1416ac5)
 
