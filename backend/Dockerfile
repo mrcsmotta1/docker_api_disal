@@ -1,6 +1,10 @@
 FROM node:12-alpine
 RUN npm install -g nodemon
 RUN npm install express
+RUN npm install swagger-jsdoc
+RUN npm install swagger-ui-express
+RUN npm install qr-image
+RUN npm install mongoose
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package*.json ./
