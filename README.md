@@ -39,7 +39,7 @@ Após a mensagem "**Servidor em execução na porta 5000**" abra uma nova aba de
 
 ### Obs:
 
-> **Bando de dados MongoDB, esta rodando na porta 27017**
+> **Banco de dados MongoDB, esta rodando na porta 27017**
 user: root
 password: disal
 
