@@ -25,13 +25,13 @@ module.exports = {
    *        properties:
    *          os:
    *             type: number
-   *             example: 111500
+   *             example: 1
    *          nome:
    *             type: string
-   *             example: "Api nodeJS"
+   *             example: "Radiador"
    *          descricao:
    *             type: string
-   *             example: "Documentação Swagger"
+   *             example: "Radiador gol 95"
    *          peso:
    *             type: number
    *             format: double
@@ -39,7 +39,7 @@ module.exports = {
    *          datafabricacao:
    *              type: string
    *              format: date-time
-   *              example: "2020-05-19T00:00:00.000Z"
+   *          example: 2020-05-19
    *    responses:
    *       201:
    *         description:
@@ -54,36 +54,39 @@ module.exports = {
    * definitions:
    *    Insere_peca:
    *       type: object
+   *       example:
+   *         doc:
+   *          _id: 5e7fa629382a536b82e142cf
+   *          os: 111500
+   *          nome: Api nodeJS
+   *          descricao: Documentação Swagger
+   *          peso:
+   *           $numberDecimal: "1.25"
+   *          datafabricacao: 2020-05-19T00:00:00.000Z
+   *          update_at: 2020-05-19T00:00:00.000Z
+   *          created_at: 2020-05-19T00:00:00.000Z   *
+   *          _v: 0
    *       properties:
    *         _id:
    *            type: string
-   *            example: 5e7fa629382a536b82e142cf
    *         os:
    *            type: number
-   *            example:  111500
    *         nome:
    *            type: string
-   *            example: "Api nodeJS"
    *         descricao:
    *            type: string
-   *            example: "Documentação Swagger"
    *         peso:
    *            type: number
    *            format: double
-   *            example:
-   *               $numberDecimal: "1.25"
    *         datafabricacao:
    *             type: string
    *             format: date-time
-   *             example: "2020-05-19T00:00:00.000Z"
    *         updated_at:
    *            type: string
    *            format: date-time
-   *            example: "2020-05-19T00:00:00.000Z"
    *         created_at:
    *            type: string
    *            format: date-time
-   *            example: "2020-05-19T00:00:00.000Z"
    *         __v:
    *            type: integer
    *            format: 0
@@ -95,7 +98,7 @@ module.exports = {
       const peca = await Peca.create(req.body);
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
-        : res.status(201).send(peca);
+        : res.status(201).send({ doc: peca });
     } catch (e) {
       if (e.code == 11000) {
         return res.status(409).json({ error: "Duplicate record" });
@@ -127,6 +130,7 @@ module.exports = {
    *    Busca_todas_pecas:
    *       type: object
    *       example:
+   *         doc:
    *         - _id: 5e7fa629382a536b82e142cf
    *           os: 111500
    *           nome: Api nodeJS
@@ -179,7 +183,7 @@ module.exports = {
       const pecas = await Peca.find();
       return pecas.length === 0
         ? res.status(404).json({ message: "Part not found" })
-        : res.status(200).send(pecas);
+        : res.status(200).send({ doc: pecas });
     } catch (e) {
       return res.status(400).json({ error: "Selection failed" });
     }
@@ -220,15 +224,17 @@ module.exports = {
    *    Buscar_pecas_por_id:
    *       type: object
    *       example:
-   *         _id: 5e7fa629382a536b82e142cf
-   *         os: 111500
-   *         nome: Api nodeJS
-   *         descricao: Documentação Swagger
-   *         peso:
-   *           $numberDecimal: "1.25"
-   *         datafabricacao: 2020-05-19T00:00:00.000Z
-   *         update_at: 2020-05-19T00:00:00.000Z
-   *         created_at: 2020-05-19T00:00:00.000Z
+   *         doc:
+   *          _id: 5e7fa629382a536b82e142cf
+   *          os: 111500
+   *          nome: Api nodeJS
+   *          descricao: Documentação Swagger
+   *          peso:
+   *            $numberDecimal: "1.25"
+   *          datafabricacao: 2020-05-19T00:00:00.000Z
+   *          update_at: 2020-05-19T00:00:00.000Z
+   *          created_at: 2020-05-19T00:00:00.000Z
+   *          __v: 0
    *       properties:
    *         _id:
    *            type: string
@@ -262,7 +268,7 @@ module.exports = {
       const peca = await Peca.findById(req.params.pecaID);
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
-        : res.status(200).send(peca);
+        : res.status(200).send({ doc: peca });
     } catch (e) {
       let os = req.params.pecaID;
       if (!isNaN(os))
@@ -331,15 +337,17 @@ module.exports = {
    *    Editar_peca_por_id:
    *       type: object
    *       example:
-   *         _id: 5e7fa629382a536b82e142cf
-   *         os: 111500
-   *         nome: Api nodeJS
-   *         descricao: Documentação Swagger
-   *         peso:
-   *           $numberDecimal: "1.25"
-   *         datafabricacao: 2020-05-19T00:00:00.000Z
-   *         update_at: 2020-05-21T00:00:00.000Z
-   *         created_at: 2020-05-19T00:00:00.000Z
+   *         doc:
+   *          _id: 5e7fa629382a536b82e142cf
+   *          os: 111500
+   *          nome: Api nodeJS
+   *          descricao: Documentação Swagger
+   *          peso:
+   *            $numberDecimal: "1.25"
+   *          datafabricacao: 2020-05-19T00:00:00.000Z
+   *          update_at: 2020-05-21T00:00:00.000Z
+   *          created_at: 2020-05-19T00:00:00.000Z
+   *          __v: 0
    *       properties:
    *         _id:
    *            type: string
@@ -374,7 +382,7 @@ module.exports = {
       });
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
-        : res.status(200).send(peca);
+        : res.status(200).send({ doc: peca });
     } catch (e) {
       let os = req.params.pecaID;
       if (!isNaN(os))
@@ -465,15 +473,17 @@ module.exports = {
    *    Buscar_pecas_por_os:
    *       type: object
    *       example:
-   *         _id: 5e7fa629382a536b82e142cf
-   *         os: 111500
-   *         nome: Api nodeJS
-   *         descricao: Documentação Swagger
-   *         peso:
-   *           $numberDecimal: "1.25"
-   *         datafabricacao: 2020-05-19T00:00:00.000Z
-   *         update_at: 2020-05-19T00:00:00.000Z
-   *         created_at: 2020-05-19T00:00:00.000Z
+   *         doc:
+   *          _id: 5e7fa629382a536b82e142cf
+   *          os: 111500
+   *          nome: Api nodeJS
+   *          descricao: Documentação Swagger
+   *          peso:
+   *            $numberDecimal: "1.25"
+   *          datafabricacao: 2020-05-19T00:00:00.000Z
+   *          update_at: 2020-05-19T00:00:00.000Z
+   *          created_at: 2020-05-19T00:00:00.000Z
+   *          _v: 0
    *       properties:
    *         _id:
    *            type: string
@@ -506,7 +516,7 @@ module.exports = {
       const peca = await Peca.findOne({ os: req.params.pecaOS });
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
-        : res.status(200).send(peca);
+        : res.status(200).send({ doc: peca });
     } catch (e) {
       let os = req.params.pecaOS;
       if (isNaN(os))
@@ -575,15 +585,16 @@ module.exports = {
    *    Editar_peca_por_os:
    *       type: object
    *       example:
-   *         _id: 5e7fa629382a536b82e142cf
-   *         os: 111500
-   *         nome: Api nodeJS
-   *         descricao: Documentação Swagger
-   *         peso:
-   *           $numberDecimal: "1.25"
-   *         datafabricacao: 2020-05-19T00:00:00.000Z
-   *         update_at: 2020-05-21T00:00:00.000Z
-   *         created_at: 2020-05-19T00:00:00.000Z
+   *         doc:
+   *          _id: 5e7fa629382a536b82e142cf
+   *          os: 111500
+   *          nome: Api nodeJS
+   *          descricao: Documentação Swagger
+   *          peso:
+   *            $numberDecimal: "1.25"
+   *          datafabricacao: 2020-05-19T00:00:00.000Z
+   *          update_at: 2020-05-21T00:00:00.000Z
+   *          created_at: 2020-05-19T00:00:00.000Z
    *       properties:
    *         _id:
    *            type: string
@@ -623,7 +634,7 @@ module.exports = {
 
       return peca == null
         ? res.status(404).json({ message: "Part not found" })
-        : res.status(200).send(peca);
+        : res.status(200).send({ doc: peca });
     } catch (e) {
       let os = req.params.pecaID;
       if (isNaN(os))
