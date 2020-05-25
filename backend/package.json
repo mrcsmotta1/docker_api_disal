@@ -4,8 +4,9 @@
   "description": "API de cadastro de peças com Ordem de serviço",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --ignore __tests__",
-    "test": "jest"
+    "start": "nodemon src/index.js --ignore tests",
+    "test": "nyc --reporter=html --reporter=text mocha src/test/peca.test.js --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,10 @@
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "jest": "^26.0.1",
-    "nodemon": "^2.0.4"
+    "assert": "^2.0.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.0.1"
   }
 }
