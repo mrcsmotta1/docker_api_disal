@@ -1,33 +1,41 @@
 # docker_api_disal
+
 API de cadastro de peças com Ordem de serviço
 
-># Desafio técnico da Disal
+> # Desafio técnico da Disal
+
 ## Requerimentos
+
 Para rodar a aplicação é necessário:
 [Docker](https://www.docker.com/)
 
 ## Console Interface
+
 ### Executando
+
 Navegue até a pasta **docker_api_disal** e execute o comando abaixo:
 
     docker-compose build
+
 Após a mensagem "**Successfully tagged docker_api_disal_backend:latest**", execute o comando abaixo:
 
     docker-compose up
 
-### Parando Container 
+### Parando Container
+
 Para excutar Stop no container e parar o projeto, execute o comando abaixo:
 
     docker-compose down
 
 ## Api Interface
+
 ### Executando
+
 Após a mensagem "**Servidor em execução na porta 5000**"
 
 ### Documentação das rotas
 
 [Swagger](http://localhost:5000/api/v1/api-docs/)
-
 
 ### Executando requisições com o Postman
 
@@ -37,12 +45,14 @@ Após a mensagem "**Servidor em execução na porta 5000**"
 
 ### Obs:
 
+> ** Para executar teste de integração, navegue até a pasta backend e execute o comando abaixo:**
+
+    npm test
+
 > **Banco de dados MongoDB, esta rodando na porta 27017**
 
-user: root
+    user: root
 
-password: disal
+    password: disal
 
->**Interface admin Mongo Express, esta rodando na porta 8081.**
-
-
+> **Interface admin Mongo Express, esta rodando na porta 8081.**
