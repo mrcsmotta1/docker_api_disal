@@ -105,4 +105,3 @@ dist
 
 # volume dir mongoDB
 data
-package-lock.json
