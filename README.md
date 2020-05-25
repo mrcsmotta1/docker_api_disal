@@ -47,7 +47,7 @@ Após a mensagem "**Servidor em execução na porta 5000**"
 
 > ** Para executar teste de integração, navegue até a pasta backend e execute o comando abaixo:**
 
-    npm teste
+    npm test
 
 > **Banco de dados MongoDB, esta rodando na porta 27017**
 
