@@ -22,9 +22,7 @@ Para excutar Stop no container e parar o projeto, execute o comando abaixo:
 
 ## Api Interface
 ### Executando
-Após a mensagem "**Servidor em execução na porta 5000**" abra uma nova aba de console e execute o comando abaixo na pasta **docker_api_disal/backend**
-
-    npm install
+Após a mensagem "**Servidor em execução na porta 5000**"
 
 ### Documentação das rotas
 
@@ -43,6 +41,6 @@ Após a mensagem "**Servidor em execução na porta 5000**" abra uma nova aba de
 user: root
 password: disal
 
->**Interface admin Mongo Express, esta rodando na porta 8081.
+>**Interface admin Mongo Express, esta rodando na porta 8081.**
 
 
