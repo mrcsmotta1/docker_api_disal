@@ -45,7 +45,7 @@ Após a mensagem "**Servidor em execução na porta 5000**"
 
 ### Obs:
 
-> ** Para executar teste de integração, navegue até a pasta backend e execute o comando abaixo:**
+> **Para executar teste de integração, navegue até a pasta backend e execute o comando abaixo:**
 
     npm test
 
