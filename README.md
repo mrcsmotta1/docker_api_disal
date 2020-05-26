@@ -7,9 +7,16 @@ API de cadastro de peças com Ordem de serviço
 ## Requerimentos
 
 Para rodar a aplicação é necessário:
+
 [Docker](https://www.docker.com/)
 
 [Docker Compose](https://docs.docker.com/compose/)
+
+Para rodar teste de integração é necessário:
+
+[Node](https://nodejs.org/en/)
+
+[npm](https://www.npmjs.com/get-npm)
 
 ## Console Interface
 
@@ -17,17 +24,17 @@ Para rodar a aplicação é necessário:
 
 Navegue até a pasta **docker_api_disal** e execute o comando abaixo:
 
-    docker-compose build
+docker-compose build
 
 Após a mensagem "**Successfully tagged docker_api_disal_backend:latest**", execute o comando abaixo:
 
-    docker-compose up
+docker-compose up
 
 ### Parando Container
 
 Para excutar Stop no container e parar o projeto, execute o comando abaixo:
 
-    docker-compose down
+docker-compose down
 
 ## Api Interface
 
@@ -49,12 +56,12 @@ Após a mensagem "**Servidor em execução na porta 5000**"
 
 > **Para executar teste de integração, navegue até a pasta backend e execute o comando abaixo:**
 
-    npm test
+npm test
 
 > **Banco de dados MongoDB, esta rodando na porta 27017**
 
-    user: root
+user: root
 
-    password: disal
+password: disal
 
 > **Interface admin Mongo Express, esta rodando na porta 8081.**
