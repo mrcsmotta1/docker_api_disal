@@ -9,6 +9,8 @@ API de cadastro de peças com Ordem de serviço
 Para rodar a aplicação é necessário:
 [Docker](https://www.docker.com/)
 
+[Docker Compose](https://docs.docker.com/compose/)
+
 ## Console Interface
 
 ### Executando
