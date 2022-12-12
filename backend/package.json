@@ -21,7 +21,7 @@
   "homepage": "https://github.com/mrcsmotta1/docker_api_disal#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongoose": "^5.9.16",
     "qr-image": "^3.2.0",
     "swagger-jsdoc": "^4.0.0",
